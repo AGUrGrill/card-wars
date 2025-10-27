@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://yb23rl4ioucn"]
+[gd_scene load_steps=6 format=3 uid="uid://yb23rl4ioucn"]
 
 [ext_resource type="Texture2D" uid="uid://dkfaayfqvgojj" path="res://Assets/bg.jpg" id="1_p0ybc"]
 [ext_resource type="Script" uid="uid://dq6svdjrnefo6" path="res://Scripts/button.gd" id="3_jqgjh"]
 [ext_resource type="PackedScene" uid="uid://nrop1qvadb3v" path="res://Scenes/landscape.tscn" id="3_vf5bc"]
-[ext_resource type="Script" uid="uid://dvhw5kciht3rj" path="res://Scripts/player_1_deck.gd" id="4_vf5bc"]
+[ext_resource type="Script" uid="uid://dvhw5kciht3rj" path="res://Scripts/hand.gd" id="4_vf5bc"]
+[ext_resource type="Script" uid="uid://cibd78b3a2a3c" path="res://Scenes/player.gd" id="5_s4i1f"]
 
 [node name="Board" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -22,39 +23,83 @@ scale = Vector2(1, 1.005)
 texture = ExtResource("1_p0ybc")
 metadata/_edit_lock_ = true
 
-[node name="Player1Draw" type="Button" parent="."]
-offset_left = -936.0
-offset_top = 456.0
-offset_right = -833.0
-offset_bottom = 487.0
+[node name="Player1Controller" type="Node" parent="."]
+
+[node name="Hand" type="HBoxContainer" parent="Player1Controller"]
+offset_left = -852.0
+offset_top = -11.0
+offset_right = -171.0
+offset_bottom = 236.0
+script = ExtResource("4_vf5bc")
+
+[node name="Tiles" type="HBoxContainer" parent="Player1Controller"]
+offset_left = -852.0
+offset_top = -488.0
+offset_right = -171.0
+offset_bottom = -10.0
+
+[node name="landscape1" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(90, 121)
+landscape_type = "Cornfield"
+
+[node name="landscape2" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(257, 121)
+landscape_type = "Cornfield"
+
+[node name="landscape3" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(424, 121)
+landscape_type = "Blue Plains"
+
+[node name="landscape4" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(591, 121)
+landscape_type = "Blue Plains"
+
+[node name="building1" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(90, 354)
+is_building = true
+
+[node name="building2" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(257, 354)
+is_building = true
+
+[node name="building3" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(424, 354)
+is_building = true
+
+[node name="building4" parent="Player1Controller/Tiles" instance=ExtResource("3_vf5bc")]
+position = Vector2(591, 354)
+is_building = true
+
+[node name="Draw" type="Button" parent="Player1Controller"]
+offset_left = -621.0
+offset_top = 248.0
+offset_right = -518.0
+offset_bottom = 279.0
 scale = Vector2(2, 2)
 text = "DRAW CARD"
 script = ExtResource("3_jqgjh")
 
-[node name="Player1Cards" type="HBoxContainer" parent="."]
-offset_left = -698.0
-offset_top = -502.0
-offset_bottom = -268.0
-scale = Vector2(2, 2)
+[node name="Stats" type="Control" parent="Player1Controller"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -943.0
+offset_top = -482.0
+offset_right = -848.0
+offset_bottom = -20.0
+script = ExtResource("5_s4i1f")
 
-[node name="landscape" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
-position = Vector2(104, 134.5)
+[node name="HP" type="Label" parent="Player1Controller/Stats"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "HP: 
+"
 
-[node name="landscape2" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
-position = Vector2(264.5, 134.5)
+[node name="Actions" type="Label" parent="Player1Controller/Stats"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 66.0
+offset_bottom = 53.0
+text = "Actions: "
 
-[node name="landscape3" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
-position = Vector2(431.5, 134.5)
-
-[node name="landscape4" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
-position = Vector2(597, 134.5)
-
-[node name="Player1Deck" type="HBoxContainer" parent="."]
-offset_left = -640.0
-offset_top = 183.0
-offset_right = -1.0
-offset_bottom = 276.5
-scale = Vector2(2, 2)
-script = ExtResource("4_vf5bc")
-
-[connection signal="pressed" from="Player1Draw" to="Player1Draw" method="_on_pressed"]
+[connection signal="pressed" from="Player1Controller/Draw" to="Player1Controller/Draw" method="_on_pressed"]
