@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://yb23rl4ioucn"]
+
+[ext_resource type="Texture2D" uid="uid://dkfaayfqvgojj" path="res://Assets/bg.jpg" id="1_p0ybc"]
+[ext_resource type="Script" uid="uid://dq6svdjrnefo6" path="res://Scripts/button.gd" id="3_jqgjh"]
+[ext_resource type="PackedScene" uid="uid://nrop1qvadb3v" path="res://Scenes/landscape.tscn" id="3_vf5bc"]
+[ext_resource type="Script" uid="uid://dvhw5kciht3rj" path="res://Scripts/player_1_deck.gd" id="4_vf5bc"]
+
+[node name="Board" type="Node2D"]
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 0
+limit_bottom = 0
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.12591085, 0.12591085, 0.12591082, 1)
+z_index = -1
+scale = Vector2(1, 1.005)
+texture = ExtResource("1_p0ybc")
+metadata/_edit_lock_ = true
+
+[node name="Player1Draw" type="Button" parent="."]
+offset_left = -936.0
+offset_top = 456.0
+offset_right = -833.0
+offset_bottom = 487.0
+scale = Vector2(2, 2)
+text = "DRAW CARD"
+script = ExtResource("3_jqgjh")
+
+[node name="Player1Cards" type="HBoxContainer" parent="."]
+offset_left = -698.0
+offset_top = -502.0
+offset_bottom = -268.0
+scale = Vector2(2, 2)
+
+[node name="landscape" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
+position = Vector2(104, 134.5)
+
+[node name="landscape2" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
+position = Vector2(264.5, 134.5)
+
+[node name="landscape3" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
+position = Vector2(431.5, 134.5)
+
+[node name="landscape4" parent="Player1Cards" instance=ExtResource("3_vf5bc")]
+position = Vector2(597, 134.5)
+
+[node name="Player1Deck" type="HBoxContainer" parent="."]
+offset_left = -640.0
+offset_top = 183.0
+offset_right = -1.0
+offset_bottom = 276.5
+scale = Vector2(2, 2)
+script = ExtResource("4_vf5bc")
+
+[connection signal="pressed" from="Player1Draw" to="Player1Draw" method="_on_pressed"]
